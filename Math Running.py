@@ -241,6 +241,7 @@ def cloud():
     glPopMatrix()
 
 def sun():
+    glPushMatrix()
     glBegin(GL_POLYGON)
     glColor3ub(245,255,97)
     for i in range(360):
@@ -249,8 +250,10 @@ def sun():
         y = 50 * math.sin(theta)
         glVertex2f(x-20, y+180)
     glEnd()    
+    glPopMatrix()
 
 def ground():
+    glPushMatrix()
     glBegin(GL_POLYGON)
     glColor3ub(60, 0, 205)
     glVertex2d(-250,-80)
@@ -258,6 +261,7 @@ def ground():
     glVertex2d(250,-250)
     glVertex2d(-250,-250)
     glEnd()
+    glPopMatrix()
 
 def start():
     glPushMatrix()
@@ -270,16 +274,14 @@ def start():
     glEnd()
     glPopMatrix()
 
-def setting():
-    glPushMatrix()
-    glBegin(GL_POLYGON)
-    glColor3ub(37, 188, 143)
-    glVertex2d(-80,-40)
-    glVertex2d(80,-40)
-    glVertex2d(80,-70)
-    glVertex2d(-80,-70)
-    glEnd()
-    glPopMatrix()
+def decorates():
+    sun()
+    cloud()
+    ground()
+
+def playgame():
+    character()
+    rintangan()
 
 def iterate():
     glViewport(0, 0, 500, 500)
@@ -294,13 +296,9 @@ def showScreen():
     glClearColor(0,0,0,1)
     glLoadIdentity()
     iterate()
-    # start()
-    # setting()
-    # sun()
-    # cloud()
-    # ground()
-    character()
-    rintangan()
+    start()
+    decorates()
+    playgame()
     glutSwapBuffers()
 
 glutInit()
