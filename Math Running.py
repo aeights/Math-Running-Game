@@ -31,8 +31,8 @@ def character():
     glTranslated(x_pos_char,y_pos_char,0)
     if x_pos_char == x_pos_object and y_pos_object-1<=y_pos_char<=y_pos_object:
         print("terkena ndase")
-    # if y_pos_char >= 0:
-    #     y_pos_char -= gravity
+    if y_pos_char >= -60:
+        y_pos_char -= gravity
     # print('x character:',x_pos_char,'y character:',y_pos_char)
     # print('x object:',x_pos_object,'y object:',y_pos_object)
     glBegin(GL_POLYGON)
@@ -63,10 +63,11 @@ def rintangan():
 def jump(key, x, y):
     global y_pos_char
     if key == b'u':
-        glutTimerFunc(1,update,0)
+        y_pos_char+=80
 
 def cloud():
     global xpos_cloud,ypos_cloud
+    glPushMatrix()
     glTranslated(xpos_cloud,ypos_cloud,0)
     xpos_cloud-=1
     if xpos_cloud <= -450:
@@ -237,6 +238,7 @@ def cloud():
         y = 20 * math.sin(theta)
         glVertex2f(x+65, y+110)
     glEnd()
+    glPopMatrix()
 
 def sun():
     glBegin(GL_POLYGON)
@@ -300,14 +302,6 @@ def showScreen():
     character()
     rintangan()
     glutSwapBuffers()
-
-def update(value):
-    global y_pos_char
-    if y_pos_char<=0:
-        y_pos_char+=1
-        glutTimerFunc(7,update,0)
-        if y_pos_char>=0:
-            y_pos_char -= gravity
 
 glutInit()
 glutInitDisplayMode(GLUT_RGBA)
