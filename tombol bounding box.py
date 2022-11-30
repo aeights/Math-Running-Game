@@ -151,7 +151,7 @@ def input_keyboard(key,x,y):
 
 def update(value):
     glutPostRedisplay()
-    glutTimerFunc(50,update,0)
+    glutTimerFunc(100,update,0)
 
 def main():
     glutInit(sys.argv)

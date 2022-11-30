@@ -18,21 +18,23 @@ ymin_char = -20
 ymax_char = 20
 x_pos_char = -210
 y_pos_char = -60
-gravity =  0.2
+gravity =  0.5
 
 # Cloud
 xpos_cloud = 0
 ypos_cloud = 90
+collision = 0
 
 
 def character():
-    global x_pos_char,y_pos_char,x_pos_object,y_pos_object
+    global x_pos_char,y_pos_char,x_pos_object,y_pos_object,collision
     glPushMatrix()
     glTranslated(x_pos_char,y_pos_char,0)
     if x_pos_char == x_pos_object and y_pos_object-1<=y_pos_char<=y_pos_object:
-        print("terkena ndase")
-    if y_pos_char >= -60:
-        y_pos_char -= gravity
+        print("terkena ndase",collision)
+        collision+=1
+    # if y_pos_char >= -60:
+    #     y_pos_char -= gravity
     # print('x character:',x_pos_char,'y character:',y_pos_char)
     # print('x object:',x_pos_object,'y object:',y_pos_object)
     glBegin(GL_POLYGON)
@@ -60,20 +62,37 @@ def rintangan():
     glEnd()
     glPopMatrix()
 
+onfloor = False
+
+def lompat(value):
+    global y_pos_char,onfloor
+    if onfloor==True:
+        y_pos_char+=1
+        glutTimerFunc(5,lompat,0)
+        if y_pos_char >= 0:
+            onfloor=False
+    if onfloor==False and y_pos_char>=-60:
+        y_pos_char-=gravity
+        glutTimerFunc(5,lompat,0)
+
 def jump(key, x, y):
-    global y_pos_char
+    global y_pos_char,onfloor,gravity,time_keeper
     if key == b'u':
-        y_pos_char+=80
+        onfloor=True
+        if onfloor==True:
+            lompat(0)
+
+
+def timer_jump(value):
+    glutTimerFunc(100,timer_jump,0)
 
 def cloud():
     global xpos_cloud,ypos_cloud
     glPushMatrix()
     glTranslated(xpos_cloud,ypos_cloud,0)
-    xpos_cloud-=1
+    # xpos_cloud-=1
     if xpos_cloud <= -450:
         xpos_cloud = 450
-    # if xpos_cloud >=80:
-    #     xpos_cloud-=0.5
     glBegin(GL_POLYGON)
     glColor3ub(195,195,195)
     for i in range(360):
@@ -276,7 +295,7 @@ def start():
 
 def decorates():
     sun()
-    cloud()
+    # cloud()
     ground()
 
 def playgame():
@@ -296,10 +315,11 @@ def showScreen():
     glClearColor(0,0,0,1)
     glLoadIdentity()
     iterate()
-    start()
+    # start()
     decorates()
     playgame()
     glutSwapBuffers()
+
 
 glutInit()
 glutInitDisplayMode(GLUT_RGBA)
