@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-
+import math
 
 # Koordinat x dan y untuk posisi kotak
 pos_x_tombol = 0
@@ -22,6 +22,179 @@ merah = 1
 
 
 gameMulai = False
+
+def cloud():
+    global xpos_cloud,ypos_cloud
+    glPushMatrix()
+    glTranslated(xpos_cloud,ypos_cloud,0)
+    # xpos_cloud-=1
+    if xpos_cloud <= -450:
+        xpos_cloud = 450
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x-145, y+10)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x-170, y-5)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x-150, y-8)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x-130, y-5)
+    glEnd()
+
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+20, y+35)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+20, y+15)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x, y+20)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+40, y+20)
+    glEnd()
+
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+155, y+10)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+160, y-8)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+180, y+-5)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+140, y-5)
+    glEnd()
+
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x-90, y+100)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x-90, y+80)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x-110, y+85)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x-80, y+85)
+    glEnd()
+
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+80, y+125)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+80, y+105)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+100, y+110)
+    glEnd()
+    glBegin(GL_POLYGON)
+    glColor3ub(195,195,195)
+    for i in range(360):
+        theta= 2 *3.1415926*i/360
+        x = 20 * math.cos(theta)
+        y = 20 * math.sin(theta)
+        glVertex2f(x+65, y+110)
+    glEnd()
+    glPopMatrix()
 
 def init():
     glClearColor(0.0, 0.0, 0.0, 1.0)

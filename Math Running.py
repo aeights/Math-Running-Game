@@ -2,6 +2,8 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 import math
+import random
+import OpenGL.GLUT as glut
 
 # Object
 xmin_object = -10
@@ -18,13 +20,35 @@ ymin_char = -20
 ymax_char = 20
 x_pos_char = -210
 y_pos_char = -60
+onfloor = False
 gravity =  0.5
 
-# Cloud
-xpos_cloud = 0
-ypos_cloud = 90
+# Question
+number1 = random.randrange(1,10)
+number2 = random.randrange(1,10)
+answer = 0
+state_quest = False
+wrong_answer = number1+number1
+correct_answer = number1+number2
+choices = []
+
 collision = 0
 
+def draw_text(text,xpos,ypos,r,b,g):
+    color = (r, b, g)
+    font_style = glut.GLUT_BITMAP_TIMES_ROMAN_24
+    glColor3ub(color[0],color[1],color[2])
+    line=0
+    glRasterPos2f(xpos, ypos)
+    for i in text:
+       if  i=='\n':
+          line=line+1
+          glRasterPos2f (xpos, ypos*line)
+       else:
+          glutBitmapCharacter(font_style, ord(i))
+
+def quest():
+    pass
 
 def character():
     global x_pos_char,y_pos_char,x_pos_object,y_pos_object,collision
@@ -33,8 +57,6 @@ def character():
     if x_pos_char == x_pos_object and y_pos_object-1<=y_pos_char<=y_pos_object:
         print("terkena ndase",collision)
         collision+=1
-    # if y_pos_char >= -60:
-    #     y_pos_char -= gravity
     # print('x character:',x_pos_char,'y character:',y_pos_char)
     # print('x object:',x_pos_object,'y object:',y_pos_object)
     glBegin(GL_POLYGON)
@@ -62,8 +84,6 @@ def rintangan():
     glEnd()
     glPopMatrix()
 
-onfloor = False
-
 def lompat(value):
     global y_pos_char,onfloor
     if onfloor==True:
@@ -73,7 +93,7 @@ def lompat(value):
             onfloor=False
     if onfloor==False and y_pos_char>=-60:
         y_pos_char-=gravity
-        glutTimerFunc(5,lompat,0)
+        glutTimerFunc(7,lompat,0)
 
 def jump(key, x, y):
     global y_pos_char,onfloor,gravity,time_keeper
@@ -82,182 +102,8 @@ def jump(key, x, y):
         if onfloor==True:
             lompat(0)
 
-
-def timer_jump(value):
-    glutTimerFunc(100,timer_jump,0)
-
 def cloud():
-    global xpos_cloud,ypos_cloud
-    glPushMatrix()
-    glTranslated(xpos_cloud,ypos_cloud,0)
-    # xpos_cloud-=1
-    if xpos_cloud <= -450:
-        xpos_cloud = 450
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x-145, y+10)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x-170, y-5)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x-150, y-8)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x-130, y-5)
-    glEnd()
-
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+20, y+35)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+20, y+15)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x, y+20)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+40, y+20)
-    glEnd()
-
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+155, y+10)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+160, y-8)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+180, y+-5)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+140, y-5)
-    glEnd()
-
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x-90, y+100)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x-90, y+80)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x-110, y+85)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x-80, y+85)
-    glEnd()
-
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+80, y+125)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+80, y+105)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+100, y+110)
-    glEnd()
-    glBegin(GL_POLYGON)
-    glColor3ub(195,195,195)
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 20 * math.cos(theta)
-        y = 20 * math.sin(theta)
-        glVertex2f(x+65, y+110)
-    glEnd()
-    glPopMatrix()
+    pass
 
 def sun():
     glPushMatrix()
@@ -294,9 +140,10 @@ def start():
     glPopMatrix()
 
 def decorates():
-    sun()
-    # cloud()
+    global number1,number2,wrong_answer,correct_answer
     ground()
+    sun()
+    draw_text(f"{number1} + {number2}",-20,-120,255,255,255)
 
 def playgame():
     character()
