@@ -4,6 +4,11 @@ from OpenGL.GLU import *
 import math
 import random
 import OpenGL.GLUT as glut
+import os
+# try:
+#     del os.environ['DISPLAY']
+# except:
+#     pass
 
 # Object
 xmin_object = -10
@@ -26,11 +31,14 @@ gravity =  0.5
 # Question
 number1 = random.randrange(1,10)
 number2 = random.randrange(1,10)
-answer = 0
 state_quest = False
 wrong_answer = number1+number1
 correct_answer = number1+number2
-choices = []
+choices = [wrong_answer,correct_answer]
+rand_idx = random.randint(0,1)
+choice1 = choices[rand_idx]
+choices.pop(rand_idx)
+choice2 = choices[0]
 
 collision = 0
 
@@ -48,7 +56,12 @@ def draw_text(text,xpos,ypos,r,b,g):
           glutBitmapCharacter(font_style, ord(i))
 
 def quest():
+    # global choices,rand_idx
+    # draw_text(f'1. {choices[rand_idx]}',-50,-150,255,255,255)
+    # choices.pop(rand_idx)
+    # draw_text(f'2. {choices[0]}',0,-150,255,255,255)
     pass
+
 
 def character():
     global x_pos_char,y_pos_char,x_pos_object,y_pos_object,collision
@@ -140,10 +153,12 @@ def start():
     glPopMatrix()
 
 def decorates():
-    global number1,number2,wrong_answer,correct_answer
+    global number1,number2,choice1,choice2
     ground()
     sun()
     draw_text(f"{number1} + {number2}",-20,-120,255,255,255)
+    draw_text(f'{choice1}',-60,-180,255,255,255)
+    draw_text(f'{choice2} ',30,-180,255,255,255)
 
 def playgame():
     character()
