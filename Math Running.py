@@ -40,6 +40,10 @@ choice1 = choices[rand_idx]
 choices.pop(rand_idx)
 choice2 = choices[0]
 
+# Game
+hp = 3
+
+
 collision = 0
 
 def draw_text(text,xpos,ypos,r,b,g):
@@ -109,11 +113,15 @@ def lompat(value):
         glutTimerFunc(7,lompat,0)
 
 def jump(key, x, y):
-    global y_pos_char,onfloor,gravity,time_keeper
+    global x_pos_object,onfloor,gravity,choice1,choice2
     if key == b'u':
         onfloor=True
         if onfloor==True:
             lompat(0)
+    if key == b'1':
+        if choice1 == correct_answer:
+            onfloor=True
+
 
 def cloud():
     pass
@@ -153,12 +161,14 @@ def start():
     glPopMatrix()
 
 def decorates():
-    global number1,number2,choice1,choice2
+    global number1,number2,choice1,choice2,onfloor,x_pos_object
     ground()
     sun()
     draw_text(f"{number1} + {number2}",-20,-120,255,255,255)
     draw_text(f'{choice1}',-60,-180,255,255,255)
-    draw_text(f'{choice2} ',30,-180,255,255,255)
+    draw_text(f'{choice2} ',40,-180,255,255,255)
+    if onfloor==True and x_pos_object <= -160:
+        lompat(0)
 
 def playgame():
     character()
