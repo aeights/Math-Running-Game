@@ -26,11 +26,10 @@ ymax_char = 20
 x_pos_char = -210
 y_pos_char = -60
 onfloor = False
-gravity =  0.5
 
 # Question
-number1 = random.randrange(1,10)
-number2 = random.randrange(1,10)
+number1 = 0
+number2 = 0
 state_quest = False
 wrong_answer = number1+number1
 correct_answer = number1+number2
@@ -60,12 +59,8 @@ def draw_text(text,xpos,ypos,r,b,g):
           glutBitmapCharacter(font_style, ord(i))
 
 def quest():
-    # global choices,rand_idx
-    # draw_text(f'1. {choices[rand_idx]}',-50,-150,255,255,255)
-    # choices.pop(rand_idx)
-    # draw_text(f'2. {choices[0]}',0,-150,255,255,255)
-    pass
-
+    if onfloor==True and x_pos_object <= -160:
+        lompat(0)
 
 def character():
     global x_pos_char,y_pos_char,x_pos_object,y_pos_object,collision
@@ -74,7 +69,7 @@ def character():
     if x_pos_char == x_pos_object and y_pos_object-1<=y_pos_char<=y_pos_object:
         print("terkena ndase",collision)
         collision+=1
-    # print('x character:',x_pos_char,'y character:',y_pos_char)
+    print('x character:',x_pos_char,'y character:',y_pos_char)
     # print('x object:',x_pos_object,'y object:',y_pos_object)
     glBegin(GL_POLYGON)
     glColor3ub(60, 170, 205)
@@ -86,12 +81,18 @@ def character():
     glPopMatrix()
 
 def rintangan():
-    global x_pos_object,y_pos_object
+    global x_pos_object,y_pos_object,number1,number2
     glPushMatrix()
     glTranslated(x_pos_object,y_pos_object,0)
     x_pos_object -= 0.5
     if -280 <= x_pos_object <= -270:
         x_pos_object = 230
+        rand_num1 = random.randrange(1,10)
+        number1=0
+        number1+=rand_num1
+        rand_num2 = random.randrange(1,10)
+        number2=0
+        number2+=rand_num2
     glBegin(GL_POLYGON)
     glColor3ub(60, 170, 205)
     glVertex2d(xmin_object,ymax_object)
@@ -104,22 +105,25 @@ def rintangan():
 def lompat(value):
     global y_pos_char,onfloor
     if onfloor==True:
-        y_pos_char+=1
-        glutTimerFunc(5,lompat,0)
+        y_pos_char+=0.5
+        glutTimerFunc(180,lompat,0)
         if y_pos_char >= 0:
             onfloor=False
     if onfloor==False and y_pos_char>=-60:
-        y_pos_char-=gravity
-        glutTimerFunc(7,lompat,0)
+        y_pos_char-=0.5
+        glutTimerFunc(180,lompat,0)
 
 def jump(key, x, y):
     global x_pos_object,onfloor,gravity,choice1,choice2
-    if key == b'u':
-        onfloor=True
-        if onfloor==True:
-            lompat(0)
+    # if key == b'u':
+    #     onfloor=True
+    #     if onfloor==True:
+    #         lompat(0)
     if key == b'1':
         if choice1 == correct_answer:
+            onfloor=True
+    if key == b'2':
+        if choice2 == correct_answer:
             onfloor=True
 
 
@@ -164,11 +168,10 @@ def decorates():
     global number1,number2,choice1,choice2,onfloor,x_pos_object
     ground()
     sun()
+    quest()
     draw_text(f"{number1} + {number2}",-20,-120,255,255,255)
     draw_text(f'{choice1}',-60,-180,255,255,255)
     draw_text(f'{choice2} ',40,-180,255,255,255)
-    if onfloor==True and x_pos_object <= -160:
-        lompat(0)
 
 def playgame():
     character()
