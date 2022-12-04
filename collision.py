@@ -2,9 +2,6 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-
-
-
 # Koordinat x dan y untuk posisi kotak
 pos_x_kotak = 0
 pos_y_kotak = 0

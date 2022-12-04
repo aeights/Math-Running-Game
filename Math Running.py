@@ -207,7 +207,6 @@ def showScreen():
     playgame()
     glutSwapBuffers()
 
-
 glutInit()
 glutInitDisplayMode(GLUT_RGBA)
 glutInitWindowSize(500, 500)
