@@ -18,3 +18,14 @@ print('index ke',rand_idx)
 print('index 0',choice1)
 print('index 1',answer)
 # print(rand_idx)
+
+number1 = 0
+number2 = 0
+state_quest = False
+wrong_answer = number1+number1
+correct_answer = number1+number2
+choices = [wrong_answer,correct_answer]
+rand_idx = random.randint(0,1)
+choice1 = choices[rand_idx]
+choices.pop(rand_idx)
+choice2 = choices[0]

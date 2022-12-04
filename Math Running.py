@@ -27,21 +27,11 @@ x_pos_char = -210
 y_pos_char = -60
 onfloor = False
 
-# Question
-number1 = 0
-number2 = 0
-state_quest = False
-wrong_answer = number1+number1
-correct_answer = number1+number2
-choices = [wrong_answer,correct_answer]
-rand_idx = random.randint(0,1)
-choice1 = choices[rand_idx]
-choices.pop(rand_idx)
-choice2 = choices[0]
-
 # Game
+crash = False
 hp = 3
-
+point = 10
+level = 1
 
 collision = 0
 
@@ -49,7 +39,7 @@ def draw_text(text,xpos,ypos,r,b,g):
     color = (r, b, g)
     font_style = glut.GLUT_BITMAP_TIMES_ROMAN_24
     glColor3ub(color[0],color[1],color[2])
-    line=0
+    line = 0
     glRasterPos2f(xpos, ypos)
     for i in text:
        if  i=='\n':
@@ -58,9 +48,36 @@ def draw_text(text,xpos,ypos,r,b,g):
        else:
           glutBitmapCharacter(font_style, ord(i))
 
+# Question
+number1 = random.randrange(1,10)
+number2 = random.randrange(1,10)
+wrong_answer = number1+number1
+correct_answer = number1+number2
+choice1 = wrong_answer
+choice2 = correct_answer
+
 def quest():
-    if onfloor==True and x_pos_object <= -160:
+    if onfloor == True and x_pos_object <= -160:
         lompat(0)
+
+def refresh_quest():
+    global number1,number2,choice1,choice2,wrong_answer,correct_answer
+    # refresh number
+    rand_num1 = random.randrange(1,10)
+    number1 = rand_num1
+    rand_num2 = random.randrange(1,10)
+    number2 = rand_num2
+
+    # refresh answer
+    wrong_answer = number1+number1
+    correct_answer = number1+number2
+
+    # random answer
+    choices = [wrong_answer,correct_answer]
+    rand_idx = random.randint(0,1)
+    choice1 = choices[rand_idx]
+    choices.pop(rand_idx)
+    choice2 = choices[0]
 
 def character():
     global x_pos_char,y_pos_char,x_pos_object,y_pos_object,collision
@@ -69,7 +86,7 @@ def character():
     if x_pos_char == x_pos_object and y_pos_object-1<=y_pos_char<=y_pos_object:
         print("terkena ndase",collision)
         collision+=1
-    print('x character:',x_pos_char,'y character:',y_pos_char)
+    # print('x character:',x_pos_char,'y character:',y_pos_char)
     # print('x object:',x_pos_object,'y object:',y_pos_object)
     glBegin(GL_POLYGON)
     glColor3ub(60, 170, 205)
@@ -87,12 +104,7 @@ def rintangan():
     x_pos_object -= 0.5
     if -280 <= x_pos_object <= -270:
         x_pos_object = 230
-        rand_num1 = random.randrange(1,10)
-        number1=0
-        number1+=rand_num1
-        rand_num2 = random.randrange(1,10)
-        number2=0
-        number2+=rand_num2
+        refresh_quest()
     glBegin(GL_POLYGON)
     glColor3ub(60, 170, 205)
     glVertex2d(xmin_object,ymax_object)
@@ -107,7 +119,7 @@ def lompat(value):
     if onfloor==True:
         y_pos_char+=0.5
         glutTimerFunc(180,lompat,0)
-        if y_pos_char >= 0:
+        if y_pos_char >= 10:
             onfloor=False
     if onfloor==False and y_pos_char>=-60:
         y_pos_char-=0.5
@@ -165,7 +177,7 @@ def start():
     glPopMatrix()
 
 def decorates():
-    global number1,number2,choice1,choice2,onfloor,x_pos_object
+    global number1,number2,choice1,choice2
     ground()
     sun()
     quest()
