@@ -56,6 +56,14 @@ correct_answer = number1+number2
 choice1 = wrong_answer
 choice2 = correct_answer
 
+# Color
+black = 55,37,56
+white = 255,255,255
+orange = 255,209,171
+pink = 224,166,179
+brown = 130,42,67
+blue = 197,224,253
+
 def quest():
     if onfloor == True and x_pos_object <= -160:
         lompat(0)
@@ -95,6 +103,78 @@ def character():
     glVertex2d(xmax_char,ymin_char)
     glVertex2d(xmax_char,ymax_char)
     glEnd()
+    glPopMatrix()
+
+def panda():
+    global black,white,orange,pink,brown
+    global x_pos_char,y_pos_char,x_pos_object,y_pos_object,collision
+    glPushMatrix()
+    glTranslated(x_pos_char,y_pos_char,0)
+    if x_pos_char == x_pos_object and y_pos_object-1<=y_pos_char<=y_pos_object:
+        print("terkena ndase",collision)
+        collision+=1
+    # body
+    square(0,0,40,45,white)
+    square(-18,0,40,13,pink)
+    square(3,-8,3,29,pink)
+    square(3,15,3,7,black)
+    square(-11,-17,3,10,pink)
+    square(-11,-14,3,5,pink)
+    square(-14,25,10,11,pink)
+    square(2,24,10,25,white)
+    square(18,21,3,5,white)
+    # eye
+    square(3,4,15,29,pink)
+    square(4,2,12,25,orange)
+    square(3,12,3,33,black)
+    square(3,-5,3,29,black)
+    square(18,4,15,3,black)
+    square(-12,4,15,3,black)
+    square(12,4,7,3,black) #mata kiri
+    square(-4,4,7,3,black) #mata kanan
+    square(4,2,3,7,black) #mulut
+
+    square(3,22.5,7,8,pink)
+    square(11.5,21.5,10,10,black)
+    square(-5.5,21.5,10,10,black)
+    square(-4,21.5,5.5,2.5,white)
+    square(10,21.5,5.5,2.5,white)
+
+    # Outline
+    # Feet
+    square(24,0,40,3,black)
+    square(-23,0,40,3,black)
+    square(0.5,-20,4,45,black)
+    square(-20,-17,3,8,black)
+    square(21,-17,3,6,black)
+    square(-13,-23,3,12,black)
+    square(-13,-26,3,8,black)
+    square(14,-23,3,12,black)
+    square(14,-26,3,8,black)
+
+    # Head
+    square(-20,25,13,3,black)
+    square(-17,28,12,3,black)
+    square(-14,29.5,9,3,black)
+    square(2,29,3,30,black)
+    square(21,21,4,3,black)
+    square(18,28,12,3,black)
+    square(21,29,8,3,black)
+    square(-11,31,2,4,black)
+    square(12,31,2,4,black)
+    square(15,28,12,3,black)
+    square(-17,27,3,3,brown)
+    square(17,28,3,3,pink)
+
+    # Hand
+    square(-15,-5,5,3,black)
+    square(-18,-5,12,3,black)
+    square(-21,-5,18,3,black)
+    square(-25,-6.5,15,3,black)
+    square(-27,-6.5,12,3,black)
+
+    square(26,-6.5,15,3,black)
+    square(28,-6.5,12,3,black)
     glPopMatrix()
 
 def rintangan():
@@ -137,13 +217,6 @@ def jump(key, x, y):
     if key == b'2':
         if choice2 == correct_answer:
             onfloor=True
-
-black = 55,37,56
-white = 255,255,255
-orange = 255,209,171
-pink = 224,166,179
-brown = 130,42,67
-blue = 197,224,253
 
 def square(x,y,height,width,color):
     glBegin(GL_POLYGON)
@@ -465,6 +538,7 @@ def start():
 
 def decorates():
     global number1,number2,choice1,choice2
+    square(0,0,500,500,blue)
     ground()
     sun()
     cloud()
@@ -474,7 +548,8 @@ def decorates():
     draw_text(f'{choice2} ',40,-180,255,255,255)
 
 def playgame():
-    character()
+    # character()
+    panda()
     rintangan()
 
 def iterate():

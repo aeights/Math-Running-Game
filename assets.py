@@ -26,20 +26,68 @@ def panda():
     # glTranslated(100,100,0)
     glScaled(5,5,0)
     # body
-    square(0,0,50,50,white)
-    square(-18,0,50,15,pink)
-    square(3,-5,3,29,pink)
-    square(3,18,3,7,black)
+    square(0,0,40,45,white)
+    square(-18,0,40,13,pink)
+    square(3,-8,3,29,pink)
+    square(3,15,3,7,black)
+    square(-11,-17,3,10,pink)
+    square(-11,-14,3,5,pink)
+    square(-14,25,10,11,pink)
+    square(2,24,10,25,white)
+    square(18,21,3,5,white)
     # eye
-    square(3,7,15,29,pink)
-    square(4,5,12,25,orange)
-    square(3,15,3,33,black)
-    square(3,-2,3,29,black)
-    square(18,7,15,3,black)
-    square(-12,7,15,3,black)
-    square(12,7,7,3,black) #mata kiri
-    square(-4,7,7,3,black) #mata kanan
-    square(4,5,3,7,black) #mulut
+    square(3,4,15,29,pink)
+    square(4,2,12,25,orange)
+    square(3,12,3,33,black)
+    square(3,-5,3,29,black)
+    square(18,4,15,3,black)
+    square(-12,4,15,3,black)
+    square(12,4,7,3,black) #mata kiri
+    square(-4,4,7,3,black) #mata kanan
+    square(4,2,3,7,black) #mulut
+
+    square(3,22.5,7,8,pink)
+    square(11.5,21.5,10,10,black)
+    square(-5.5,21.5,10,10,black)
+    square(-4,21.5,5.5,2.5,white)
+    square(10,21.5,5.5,2.5,white)
+
+    # Outline
+    # Feet
+    square(24,0,40,3,black)
+    square(-23,0,40,3,black)
+    square(0.5,-20,4,45,black)
+    square(-20,-17,3,8,black)
+    square(21,-17,3,6,black)
+    square(-13,-23,3,12,black)
+    square(-13,-26,3,8,black)
+    square(14,-23,3,12,black)
+    square(14,-26,3,8,black)
+
+    # Head
+    square(-20,25,13,3,black)
+    square(-17,28,12,3,black)
+    square(-14,29.5,9,3,black)
+    square(2,29,3,30,black)
+    square(21,21,4,3,black)
+    square(18,28,12,3,black)
+    square(21,29,8,3,black)
+    square(-11,31,2,4,black)
+    square(12,31,2,4,black)
+    square(15,28,12,3,black)
+    square(-17,27,3,3,brown)
+    square(17,28,3,3,pink)
+
+    # Hand
+    square(-15,-5,5,3,black)
+    square(-18,-5,12,3,black)
+    square(-21,-5,18,3,black)
+    square(-25,-6.5,15,3,black)
+    square(-27,-6.5,12,3,black)
+
+    square(26,-6.5,15,3,black)
+    square(28,-6.5,12,3,black)
+
 
 def cloud():
     global black,white,blue
@@ -130,9 +178,10 @@ def showScreen():
     glLoadIdentity()
     iterate()
     square(0,0,500,500,[255,160,112])
-    # panda()
-    cloud()
-    square(0,0,2,2,[255,160,112])
+    panda()
+    # cloud()
+    # square(0,0,2,2,[255,160,112])
+    # square(0,0,50,50,blue)
     glutSwapBuffers()
 
 glutInit()
