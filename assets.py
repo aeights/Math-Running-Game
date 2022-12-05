@@ -44,6 +44,30 @@ def panda():
 def cloud():
     global black,white,blue
     glScaled(3,3,0)
+    # Color
+    square(0,16,20,99,white)
+    square(0,30,15,41,white)
+    square(-1.5,45,15,28,white)
+    square(35.5,29,6,28,white)
+    square(35,34.5,6,19,white)
+    square(-38,25,5,15,white)
+
+    # Color
+    square(0,5,5,100,blue)
+    square(-45,10,5,10,blue)
+    square(-47,17,10,5,blue)
+
+    square(-15,10,5,10,blue)
+    square(-18,17,10,5,blue)
+    square(-23,24,5,5,blue)
+
+    square(10,10,5,10,blue)
+    square(15,17,11,5,blue)
+    square(20,25,5,5,blue)
+
+    square(45,10,5,10,blue)
+    square(47,17,10,5,blue)
+
     # Outline
     square(0,0,5,100,black)
     square(52,15,25,5,black)
@@ -56,7 +80,18 @@ def cloud():
 
     square(47,30,5,5,black)
     square(42,35,5,5,black)
-    square(38,29,5,15,black)
+    square(35,40,5,10,black)
+    square(28,35,5,5,black)
+    square(23,30,5,5,black)
+    square(18,35,5,5,black)
+    square(15,43,11,5,black)
+    square(10,50,5,5,black)
+    square(-13,50,5,5,black)
+    square(-2,52,5,19,black)
+
+    # Color
+    # square(0,16,20,99,white)
+
 
 def sun():
     pass

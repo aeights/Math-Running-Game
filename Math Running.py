@@ -138,9 +138,296 @@ def jump(key, x, y):
         if choice2 == correct_answer:
             onfloor=True
 
+black = 55,37,56
+white = 255,255,255
+orange = 255,209,171
+pink = 224,166,179
+brown = 130,42,67
+blue = 197,224,253
+
+def square(x,y,height,width,color):
+    glBegin(GL_POLYGON)
+    glColor3ub(color[0],color[1],color[2])
+    height = height/2
+    width = width/2
+    glVertex2f(-width+x,height+y)
+    glVertex2f(width+x,height+y)
+    glVertex2f(width+x,-height+y)
+    glVertex2f(-width+x,-height+y)
+    glEnd()
+
+state_cloud = True
+xpos_cloud = 0
+ypos_cloud = 0
 
 def cloud():
-    pass
+    global xpos_cloud,ypos_cloud,state_cloud
+    glPushMatrix()
+    glTranslated(xpos_cloud,ypos_cloud,0)
+    # if state_cloud == True and xpos_cloud >= -50:
+    #     xpos_cloud -= 0.1
+    # else:
+    #     state_cloud = False
+    # if state_cloud == False and xpos_cloud >= 50:
+    #     xpos_cloud += 0.1
+    # else:
+    #     state_cloud = True
+    cloud1()
+    cloud2()
+    cloud3()
+    cloud4()
+    cloud5()
+    glPopMatrix()
+
+def cloud1():
+    global black,white,blue
+    glPushMatrix()
+    glTranslated(0,100,0)
+    # Color
+    square(0,16,20,99,white)
+    square(0,30,15,41,white)
+    square(-1.5,45,15,28,white)
+    square(35.5,29,6,28,white)
+    square(35,34.5,6,19,white)
+    square(-38,25,5,15,white)
+
+    # Color
+    square(0,5,5,100,blue)
+    square(-45,10,5,10,blue)
+    square(-47,17,10,5,blue)
+
+    square(-15,10,5,10,blue)
+    square(-18,17,10,5,blue)
+    square(-23,24,5,5,blue)
+
+    square(10,10,5,10,blue)
+    square(15,17,11,5,blue)
+    square(20,25,5,5,blue)
+
+    square(45,10,5,10,blue)
+    square(47,17,10,5,blue)
+
+    # Outline
+    square(0,0,5,100,black)
+    square(52,15,25,5,black)
+    square(-52,12,20,5,black)
+    square(-47,24,5,5,black)
+    square(-28,24,5,5,black)
+    square(-38,29,5,15,black)
+    square(-23,32,11,5,black)
+    square(-18,43,11,5,black)
+
+    square(47,30,5,5,black)
+    square(42,35,5,5,black)
+    square(35,40,5,10,black)
+    square(28,35,5,5,black)
+    square(23,30,5,5,black)
+    square(18,35,5,5,black)
+    square(15,43,11,5,black)
+    square(10,50,5,5,black)
+    square(-13,50,5,5,black)
+    square(-2,52,5,19,black)
+    glPopMatrix()
+
+def cloud2():
+    global black,white,blue
+    glPushMatrix()
+    glTranslated(150,80,0)
+    # Color
+    square(0,16,20,99,white)
+    square(0,30,15,41,white)
+    square(-1.5,45,15,28,white)
+    square(35.5,29,6,28,white)
+    square(35,34.5,6,19,white)
+    square(-38,25,5,15,white)
+
+    # Color
+    square(0,5,5,100,blue)
+    square(-45,10,5,10,blue)
+    square(-47,17,10,5,blue)
+
+    square(-15,10,5,10,blue)
+    square(-18,17,10,5,blue)
+    square(-23,24,5,5,blue)
+
+    square(10,10,5,10,blue)
+    square(15,17,11,5,blue)
+    square(20,25,5,5,blue)
+
+    square(45,10,5,10,blue)
+    square(47,17,10,5,blue)
+
+    # Outline
+    square(0,0,5,100,black)
+    square(52,15,25,5,black)
+    square(-52,12,20,5,black)
+    square(-47,24,5,5,black)
+    square(-28,24,5,5,black)
+    square(-38,29,5,15,black)
+    square(-23,32,11,5,black)
+    square(-18,43,11,5,black)
+
+    square(47,30,5,5,black)
+    square(42,35,5,5,black)
+    square(35,40,5,10,black)
+    square(28,35,5,5,black)
+    square(23,30,5,5,black)
+    square(18,35,5,5,black)
+    square(15,43,11,5,black)
+    square(10,50,5,5,black)
+    square(-13,50,5,5,black)
+    square(-2,52,5,19,black)
+    glPopMatrix()
+
+def cloud3():
+    global black,white,blue
+    glPushMatrix()
+    glTranslated(-150,90,0)
+    # Color
+    square(0,16,20,99,white)
+    square(0,30,15,41,white)
+    square(-1.5,45,15,28,white)
+    square(35.5,29,6,28,white)
+    square(35,34.5,6,19,white)
+    square(-38,25,5,15,white)
+
+    # Color
+    square(0,5,5,100,blue)
+    square(-45,10,5,10,blue)
+    square(-47,17,10,5,blue)
+
+    square(-15,10,5,10,blue)
+    square(-18,17,10,5,blue)
+    square(-23,24,5,5,blue)
+
+    square(10,10,5,10,blue)
+    square(15,17,11,5,blue)
+    square(20,25,5,5,blue)
+
+    square(45,10,5,10,blue)
+    square(47,17,10,5,blue)
+
+    # Outline
+    square(0,0,5,100,black)
+    square(52,15,25,5,black)
+    square(-52,12,20,5,black)
+    square(-47,24,5,5,black)
+    square(-28,24,5,5,black)
+    square(-38,29,5,15,black)
+    square(-23,32,11,5,black)
+    square(-18,43,11,5,black)
+
+    square(47,30,5,5,black)
+    square(42,35,5,5,black)
+    square(35,40,5,10,black)
+    square(28,35,5,5,black)
+    square(23,30,5,5,black)
+    square(18,35,5,5,black)
+    square(15,43,11,5,black)
+    square(10,50,5,5,black)
+    square(-13,50,5,5,black)
+    square(-2,52,5,19,black)
+    glPopMatrix()
+
+def cloud4():
+    global black,white,blue
+    glPushMatrix()
+    glTranslated(100,180,0)
+    # Color
+    square(0,16,20,99,white)
+    square(0,30,15,41,white)
+    square(-1.5,45,15,28,white)
+    square(35.5,29,6,28,white)
+    square(35,34.5,6,19,white)
+    square(-38,25,5,15,white)
+
+    # Color
+    square(0,5,5,100,blue)
+    square(-45,10,5,10,blue)
+    square(-47,17,10,5,blue)
+
+    square(-15,10,5,10,blue)
+    square(-18,17,10,5,blue)
+    square(-23,24,5,5,blue)
+
+    square(10,10,5,10,blue)
+    square(15,17,11,5,blue)
+    square(20,25,5,5,blue)
+
+    square(45,10,5,10,blue)
+    square(47,17,10,5,blue)
+
+    # Outline
+    square(0,0,5,100,black)
+    square(52,15,25,5,black)
+    square(-52,12,20,5,black)
+    square(-47,24,5,5,black)
+    square(-28,24,5,5,black)
+    square(-38,29,5,15,black)
+    square(-23,32,11,5,black)
+    square(-18,43,11,5,black)
+
+    square(47,30,5,5,black)
+    square(42,35,5,5,black)
+    square(35,40,5,10,black)
+    square(28,35,5,5,black)
+    square(23,30,5,5,black)
+    square(18,35,5,5,black)
+    square(15,43,11,5,black)
+    square(10,50,5,5,black)
+    square(-13,50,5,5,black)
+    square(-2,52,5,19,black)
+    glPopMatrix()
+
+def cloud5():
+    global black,white,blue
+    glPushMatrix()
+    glTranslated(-120,160,0)
+    # Color
+    square(0,16,20,99,white)
+    square(0,30,15,41,white)
+    square(-1.5,45,15,28,white)
+    square(35.5,29,6,28,white)
+    square(35,34.5,6,19,white)
+    square(-38,25,5,15,white)
+
+    # Color
+    square(0,5,5,100,blue)
+    square(-45,10,5,10,blue)
+    square(-47,17,10,5,blue)
+
+    square(-15,10,5,10,blue)
+    square(-18,17,10,5,blue)
+    square(-23,24,5,5,blue)
+
+    square(10,10,5,10,blue)
+    square(15,17,11,5,blue)
+    square(20,25,5,5,blue)
+
+    square(45,10,5,10,blue)
+    square(47,17,10,5,blue)
+
+    # Outline
+    square(0,0,5,100,black)
+    square(52,15,25,5,black)
+    square(-52,12,20,5,black)
+    square(-47,24,5,5,black)
+    square(-28,24,5,5,black)
+    square(-38,29,5,15,black)
+    square(-23,32,11,5,black)
+    square(-18,43,11,5,black)
+
+    square(47,30,5,5,black)
+    square(42,35,5,5,black)
+    square(35,40,5,10,black)
+    square(28,35,5,5,black)
+    square(23,30,5,5,black)
+    square(18,35,5,5,black)
+    square(15,43,11,5,black)
+    square(10,50,5,5,black)
+    square(-13,50,5,5,black)
+    square(-2,52,5,19,black)
+    glPopMatrix()
 
 def sun():
     glPushMatrix()
@@ -180,6 +467,7 @@ def decorates():
     global number1,number2,choice1,choice2
     ground()
     sun()
+    cloud()
     quest()
     draw_text(f"{number1} + {number2}",-20,-120,255,255,255)
     draw_text(f'{choice1}',-60,-180,255,255,255)
