@@ -9,11 +9,16 @@ orange = 255,209,171
 pink = 224,166,179
 brown = 130,42,67
 blue = 197,224,253
+yellow = 245,255,97
+red = 254,0,0
 
 log1 = 53,41,24
 log2 = 103,83,53
 log3 = 84,65,36
 log4 = 65,50,30
+
+sun1 = 253,221,127
+sun2 = 250,209,86
 
 def square(x,y,height,width,color):
     glBegin(GL_POLYGON)
@@ -117,7 +122,6 @@ def panda():
     square(26,-6.5,15,3,black)
     square(28,-6.5,12,3,black)
 
-
 def cloud():
     global black,white,blue
     glScaled(3,3,0)
@@ -166,12 +170,116 @@ def cloud():
     square(-13,50,5,5,black)
     square(-2,52,5,19,black)
 
+def hp():
+    glScaled(4,4,0)
+    # square(0,0,40,40,orange)
     # Color
-    # square(0,16,20,99,white)
+    square(9.5,15,4,10,red)
+    square(-9.5,15,4,10,red)
+    square(0,8.5,10,40,red)
+    square(0,1,25,11,red)
+    square(8,0,11,7,red)
+    square(-8,0,11,7,red)
+    square(11,2,4,7,red)
+    square(-11,2,4,7,red)
+
+    square(-9.5,13,3,5,white)
+    square(-12,10,3,5,white)
+    square(-13,8,5,3,white)
+
+    
+    square(0,12,3,3,black)
+    square(3,15,3,3,black)
+    square(-3,15,3,3,black)
+
+    square(9.5,18,3,10,black)
+    square(-9.5,18,3,10,black)
+    square(16,15,3,3,black)
+    square(-16,15,3,3,black)
+    square(19,8.5,10,3,black)
+    square(-19,8.5,10,3,black)
+
+    square(16,2,3,3,black)
+    square(-16,2,3,3,black)
+    square(13,-1,3,3,black)
+    square(-13,-1,3,3,black)
+    square(10,-4,3,3,black)
+    square(-10,-4,3,3,black)
+    square(7,-7,3,3,black)
+    square(-7,-7,3,3,black)
+    square(4,-10,3,3,black)
+    square(-4,-10,3,3,black)
+    square(1,-13,3,3,black)
+    square(-1,-13,3,3,black)
 
 
 def sun():
-    pass
+    glScaled(4,4,0)
+    # Color
+    square(0,0,50,100,yellow)
+    square(0,0,100,50,yellow)
+
+    # square(0,0,100,100,blue)
+    square(50,0,50,3,black)
+    square(-50,0,50,3,black)
+    square(0,50,3,50,black)
+    square(0,-50,3,50,black)
+
+    square(47,29,8,3,black)
+    square(44,37,8,3,black)
+    square(42,42,3,3,black)#tengah
+    square(29,47,3,8,black)
+    square(37,44,3,8,black)
+
+    square(-47,29,8,3,black)
+    square(-44,37,8,3,black)
+    square(-42,42,3,3,black)
+    square(-29,47,3,8,black)
+    square(-37,44,3,8,black)
+
+    square(-47,-29,8,3,black)
+    square(-44,-37,8,3,black)
+    square(-42,-42,3,3,black)
+    square(-29,-47,3,8,black)
+    square(-37,-44,3,8,black)
+
+    square(47,-29,8,3,black)
+    square(44,-37,8,3,black)
+    square(42,-42,3,3,black)
+    square(29,-47,3,8,black)
+    square(37,-44,3,8,black)
+
+def sun_new():
+    # glScaled(2,2,0)
+    # square(0,0,100,100,blue)
+    square(50,0,90,10,sun2)
+    square(-50,0,90,10,sun2)
+    square(0,50,10,90,sun2)
+    square(0,-50,10,90,sun2)
+
+    square(0,0,90,90,sun1)
+    square(40,40,10,10,white)
+
+    square(60,60,10,10,sun2)
+    square(-60,60,10,10,sun2)
+    square(60,-60,10,10,sun2)
+    square(-60,-60,10,10,sun2)
+
+    square(0,70,10,40,sun2)
+    square(0,80,10,10,sun2)
+    square(0,70,10,10,sun1)
+
+    square(0,-70,10,40,sun2)
+    square(0,-80,10,10,sun2)
+    square(0,-70,10,10,sun1)
+
+    square(-70,0,40,10,sun2)
+    square(-80,0,10,10,sun2)
+    square(-70,0,10,10,sun1)
+
+    square(70,0,40,10,sun2)
+    square(80,0,10,10,sun2)
+    square(70,0,10,10,sun1)
 
 def backup():
     global black,white,orange,pink,brown
@@ -208,8 +316,11 @@ def showScreen():
     iterate()
     square(0,0,500,500,[255,160,112])
     # panda()
-    log()
+    # log()
     # cloud()
+    # sun()
+    # sun_new()
+    hp()
     # square(0,0,2,2,[255,160,112])
     # square(0,0,50,50,blue)
     glutSwapBuffers()

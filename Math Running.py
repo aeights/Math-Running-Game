@@ -11,37 +11,40 @@ import os
 #     pass
 
 # Object
-xmin_object = -10
-xmax_object = 20
-ymin_object = -20
-ymax_object = 20 
 x_pos_object = -270
 y_pos_object = -60
 
 # Character
-xmin_char = -10
-xmax_char = 10
-ymin_char = -20
-ymax_char = 20
 x_pos_char = -210
 y_pos_char = -60
 onfloor = False
 
 # Game
-crash = False
+game_over = False
 hp = 3
-point = 10
+point = 0
 level = 1
 
 collision = 0
 
-def draw_text(text,xpos,ypos,r,b,g):
-    color = (r, b, g)
+def draw_text(text,xpos,ypos,color):
     font_style = glut.GLUT_BITMAP_TIMES_ROMAN_24
     glColor3ub(color[0],color[1],color[2])
     line = 0
     glRasterPos2f(xpos, ypos)
     for i in text:
+       if  i=='\n':
+          line=line+1
+          glRasterPos2f (xpos, ypos*line)
+       else:
+          glutBitmapCharacter(font_style, ord(i))
+
+def drawText1(text,xpos,ypos,color):
+    font_style = glut.GLUT_BITMAP_8_BY_13
+    glColor3ub(color[0],color[1],color[2])
+    line=0
+    glRasterPos2f (xpos, ypos)
+    for i in str(text):
        if  i=='\n':
           line=line+1
           glRasterPos2f (xpos, ypos*line)
@@ -56,6 +59,8 @@ correct_answer = 0
 choice1 = 0
 choice2 = 0
 state_quest = True
+show_answer_left = False
+show_answer_right = False
 
 # Color
 black = 55,37,56
@@ -64,15 +69,19 @@ orange = 255,209,171
 pink = 224,166,179
 brown = 130,42,67
 blue = 197,224,253
+red = 254,0,0
 
 log1 = 53,41,24
 log2 = 103,83,53
 log3 = 84,65,36
 log4 = 65,50,30
 
+sun1 = 253,221,127
+sun2 = 250,209,86
+
 def quest():
     global state_quest
-    if onfloor == True and x_pos_object <= -150:
+    if onfloor == True and x_pos_object <= -120:
         lompat(0)
         state_quest=True
 
@@ -96,12 +105,14 @@ def refresh_quest():
     choice2 = choices[0]
 
 def panda():
-    global x_pos_char,y_pos_char,x_pos_object,y_pos_object,collision
+    global x_pos_char,y_pos_char,x_pos_object,y_pos_object,collision,hp
     glPushMatrix()
     glTranslated(x_pos_char,y_pos_char,0)
     if x_pos_char == x_pos_object and y_pos_object-1<=y_pos_char<=y_pos_object:
         print("terkena ndase",collision)
         collision+=1
+        hp-=1
+
     # body
     square(0,0,40,45,white)
     square(-18,0,40,13,pink)
@@ -167,14 +178,17 @@ def panda():
     glPopMatrix()
 
 def log():
-    global x_pos_object,y_pos_object,state_quest
+    global x_pos_object,y_pos_object,state_quest,show_answer_left,show_answer_right
     glPushMatrix()
     glTranslated(x_pos_object,y_pos_object,0)
-    x_pos_object -= 0.5
+    x_pos_object -= 1
     if -290 <= x_pos_object <= -280:
         x_pos_object = 270
         refresh_quest()
         state_quest=True
+        show_answer_left=False
+        show_answer_right=False
+
     square(0,0,40,40,log1)
     square(0,0,30,30,log2)
     square(0,0,20,20,log3)
@@ -201,26 +215,28 @@ def lompat(value):
     global y_pos_char,onfloor
     if onfloor==True:
         y_pos_char+=0.5
-        glutTimerFunc(100,lompat,0)
-        if y_pos_char >= 30:
+        glutTimerFunc(200,lompat,0)
+        if y_pos_char >= 10:
             onfloor=False
     if onfloor==False and y_pos_char>=-60:
-        y_pos_char-=0.5
+        y_pos_char-=0.25
         glutTimerFunc(200,lompat,0)
 
 def jump(key, x, y):
-    global onfloor,state_quest
+    global onfloor,state_quest,show_answer_left,show_answer_right
     # if key == b'u':
     #     onfloor=True
     #     if onfloor==True:
     #         lompat(0)
     if key == b'1' and state_quest == True:
+        show_answer_left=True
         if choice1 == correct_answer:
             onfloor=True
             state_quest=False
         else:
             state_quest=False
     if key == b'2' and state_quest == True:
+        show_answer_right=True
         if choice2 == correct_answer:
             onfloor=True
             state_quest=False
@@ -509,23 +525,124 @@ def cloud5():
 def sun():
     glPushMatrix()
     glBegin(GL_POLYGON)
-    glColor3ub(245,255,97)
+    # glColor3ub(245,255,97)
+    glColor3ub(sun1[0],sun1[1],sun1[2])
     for i in range(360):
         theta= 2 *3.1415926*i/360
         x = 50 * math.cos(theta)
         y = 50 * math.sin(theta)
         glVertex2f(x-20, y+180)
-    glEnd()    
+    glEnd()
+    # glScaled(0.8,0.8,0)
+    # glTranslated(-20,230,0)
+    # square(50,0,90,10,sun2)
+    # square(-50,0,90,10,sun2)
+    # square(0,50,10,90,sun2)
+    # square(0,-50,10,90,sun2)
+
+    # square(0,0,90,90,sun1)
+    # square(40,40,10,10,white)
+
+    # square(60,60,10,10,sun2)
+    # square(-60,60,10,10,sun2)
+    # square(60,-60,10,10,sun2)
+    # square(-60,-60,10,10,sun2)
+
+    # square(0,70,10,40,sun2)
+    # square(0,80,10,10,sun2)
+    # square(0,70,10,10,sun1)
+
+    # square(0,-70,10,40,sun2)
+    # square(0,-80,10,10,sun2)
+    # square(0,-70,10,10,sun1)
+
+    # square(-70,0,40,10,sun2)
+    # square(-80,0,10,10,sun2)
+    # square(-70,0,10,10,sun1)
+
+    # square(70,0,40,10,sun2)
+    # square(80,0,10,10,sun2)
+    # square(70,0,10,10,sun1)
     glPopMatrix()
 
-def ground():
+def draw_hp(x=130):
+    global xpos_hp
+    glPushMatrix()
+    glTranslated(x,10,0)
+    # Color
+    square(9.5,15,4,10,red)
+    square(-9.5,15,4,10,red)
+    square(0,8.5,10,40,red)
+    square(0,1,25,11,red)
+    square(8,0,11,7,red)
+    square(-8,0,11,7,red)
+    square(11,2,4,7,red)
+    square(-11,2,4,7,red)
+
+    square(-9.5,13,3,5,white)
+    square(-12,10,3,5,white)
+    square(-13,8,5,3,white)
+
+    # Outline
+    square(0,12,3,3,black)
+    square(3,15,3,3,black)
+    square(-3,15,3,3,black)
+
+    square(9.5,18,3,10,black)
+    square(-9.5,18,3,10,black)
+    square(16,15,3,3,black)
+    square(-16,15,3,3,black)
+    square(19,8.5,10,3,black)
+    square(-19,8.5,10,3,black)
+
+    square(16,2,3,3,black)
+    square(-16,2,3,3,black)
+    square(13,-1,3,3,black)
+    square(-13,-1,3,3,black)
+    square(10,-4,3,3,black)
+    square(-10,-4,3,3,black)
+    square(7,-7,3,3,black)
+    square(-7,-7,3,3,black)
+    square(4,-10,3,3,black)
+    square(-4,-10,3,3,black)
+    square(1,-13,3,3,black)
+    square(-1,-13,3,3,black)
+    glPopMatrix()
+
+def show_hp():
+    global xpos_hp
+    if hp==3:
+        draw_hp()
+        draw_hp(175)
+        draw_hp(220)
+    elif hp==2:
+        draw_hp()
+        draw_hp(175)
+    elif hp==1:
+        draw_hp()
+    else:
+        pass
+
+def dirt():
     glPushMatrix()
     glBegin(GL_POLYGON)
     glColor3ub(60, 0, 205)
+    glColor3ub(log2[0],log2[1],log2[2])
     glVertex2d(-250,-80)
     glVertex2d(250,-80)
     glVertex2d(250,-250)
     glVertex2d(-250,-250)
+    glEnd()
+    glPopMatrix()
+
+def grass():
+    glPushMatrix()
+    glBegin(GL_POLYGON)
+    glColor3ub(102,166,60)
+    glVertex2d(-250,-80)
+    glVertex2d(250,-80)
+    glVertex2d(250,-110)
+    glVertex2d(-250,-110)
     glEnd()
     glPopMatrix()
 
@@ -541,19 +658,48 @@ def start():
     glPopMatrix()
 
 def decorates():
-    global number1,number2,choice1,choice2
+    global xpos_hp
     square(0,0,500,500,blue)
-    ground()
+    dirt()
+    grass()
     sun()
     cloud()
     quest()
-    draw_text(f"{number1} + {number2}",-20,-120,255,255,255)
-    draw_text(f'{choice1}',-60,-180,255,255,255)
-    draw_text(f'{choice2} ',40,-180,255,255,255)
+    show_hp()
+
+    # Quest box
+    square(0,-128,3,80,log1)
+    square(0,-160,3,80,log1)
+    square(40,-144,35,3,log1)
+    square(-40,-144,35,3,log1)
+
+    # Highlight
+    if show_answer_left==True:
+        square(-48,-203,35,50,log1)
+    elif show_answer_right==True:
+        square(47,-203,35,50,log1)
+
+    # Answer box
+    square(-48,-187,3,50,[102,166,60])
+    square(-48,-219,3,50,[102,166,60])
+
+    square(48,-187,3,50,[102,166,60])
+    square(48,-219,3,50,[102,166,60])
+
+    square(-72,-203,35,3,[102,166,60])
+    square(-22,-203,35,3,[102,166,60])
+    square(72,-203,35,3,[102,166,60])
+    square(22,-203,35,3,[102,166,60])
+
+    draw_text(f"{number1} + {number2}",-25,-150,[255,255,255])
+    draw_text(f'{choice1}',-60,-210,[255,255,255])
+    draw_text(f'{choice2} ',35,-210,[255,255,255])
+
+    drawText1("SCORE",0,0,[255,255,255])
 
 def playgame():
-    panda()
     log()
+    panda()
 
 def iterate():
     glViewport(0, 0, 500, 500)
