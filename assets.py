@@ -10,6 +10,11 @@ pink = 224,166,179
 brown = 130,42,67
 blue = 197,224,253
 
+log1 = 53,41,24
+log2 = 103,83,53
+log3 = 84,65,36
+log4 = 65,50,30
+
 def square(x,y,height,width,color):
     glBegin(GL_POLYGON)
     glColor3ub(color[0],color[1],color[2])
@@ -20,6 +25,30 @@ def square(x,y,height,width,color):
     glVertex2f(width+x,-height+y)
     glVertex2f(-width+x,-height+y)
     glEnd()
+
+def log():
+    global log1,log2,log3
+    glScaled(5,5,0)
+    square(0,0,40,40,log1)
+    square(0,0,30,30,log2)
+    square(0,0,20,20,log3)
+    square(0,0,10,10,log2)
+    square(0,0,5,5,log3)
+
+    square(10,17.5,5,5,log4)
+    square(-12.5,17.5,5,5,log4)
+    square(-17.5,-17.5,5,5,log4)
+    square(-17.5,2,5,5,log4)
+    square(17.5,4,5,5,log4)
+    square(17.5,-8,5,5,log4)
+    square(0,-17.5,5,5,log4)
+
+    square(-2,17.5,5,5,log3)
+    square(10,-17.5,5,5,log3)
+    square(17.5,17.5,5,5,log3)
+    square(-17.5,10,5,5,log3)
+    square(-10,-17.5,5,5,log3)
+    square(-17.5,-8,5,5,log2)
 
 def panda():
     global black,white,orange,pink,brown
@@ -178,7 +207,8 @@ def showScreen():
     glLoadIdentity()
     iterate()
     square(0,0,500,500,[255,160,112])
-    panda()
+    # panda()
+    log()
     # cloud()
     # square(0,0,2,2,[255,160,112])
     # square(0,0,50,50,blue)

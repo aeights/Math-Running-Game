@@ -15,7 +15,7 @@ xmin_object = -10
 xmax_object = 20
 ymin_object = -20
 ymax_object = 20 
-x_pos_object = 230
+x_pos_object = -270
 y_pos_object = -60
 
 # Character
@@ -49,12 +49,13 @@ def draw_text(text,xpos,ypos,r,b,g):
           glutBitmapCharacter(font_style, ord(i))
 
 # Question
-number1 = random.randrange(1,10)
-number2 = random.randrange(1,10)
-wrong_answer = number1+number1
-correct_answer = number1+number2
-choice1 = wrong_answer
-choice2 = correct_answer
+number1 = 0
+number2 = 0
+wrong_answer = 0
+correct_answer = 0
+choice1 = 0
+choice2 = 0
+state_quest = True
 
 # Color
 black = 55,37,56
@@ -64,9 +65,16 @@ pink = 224,166,179
 brown = 130,42,67
 blue = 197,224,253
 
+log1 = 53,41,24
+log2 = 103,83,53
+log3 = 84,65,36
+log4 = 65,50,30
+
 def quest():
-    if onfloor == True and x_pos_object <= -160:
+    global state_quest
+    if onfloor == True and x_pos_object <= -150:
         lompat(0)
+        state_quest=True
 
 def refresh_quest():
     global number1,number2,choice1,choice2,wrong_answer,correct_answer
@@ -87,26 +95,7 @@ def refresh_quest():
     choices.pop(rand_idx)
     choice2 = choices[0]
 
-def character():
-    global x_pos_char,y_pos_char,x_pos_object,y_pos_object,collision
-    glPushMatrix()
-    glTranslated(x_pos_char,y_pos_char,0)
-    if x_pos_char == x_pos_object and y_pos_object-1<=y_pos_char<=y_pos_object:
-        print("terkena ndase",collision)
-        collision+=1
-    # print('x character:',x_pos_char,'y character:',y_pos_char)
-    # print('x object:',x_pos_object,'y object:',y_pos_object)
-    glBegin(GL_POLYGON)
-    glColor3ub(60, 170, 205)
-    glVertex2d(xmin_char,ymax_char)
-    glVertex2d(xmin_char,ymin_char)
-    glVertex2d(xmax_char,ymin_char)
-    glVertex2d(xmax_char,ymax_char)
-    glEnd()
-    glPopMatrix()
-
 def panda():
-    global black,white,orange,pink,brown
     global x_pos_char,y_pos_char,x_pos_object,y_pos_object,collision
     glPushMatrix()
     glTranslated(x_pos_char,y_pos_char,0)
@@ -177,46 +166,66 @@ def panda():
     square(28,-6.5,12,3,black)
     glPopMatrix()
 
-def rintangan():
-    global x_pos_object,y_pos_object,number1,number2
+def log():
+    global x_pos_object,y_pos_object,state_quest
     glPushMatrix()
     glTranslated(x_pos_object,y_pos_object,0)
     x_pos_object -= 0.5
-    if -280 <= x_pos_object <= -270:
-        x_pos_object = 230
+    if -290 <= x_pos_object <= -280:
+        x_pos_object = 270
         refresh_quest()
-    glBegin(GL_POLYGON)
-    glColor3ub(60, 170, 205)
-    glVertex2d(xmin_object,ymax_object)
-    glVertex2d(xmin_object,ymin_object)
-    glVertex2d(xmax_object,ymin_object)
-    glVertex2d(xmax_object,ymax_object)
-    glEnd()
+        state_quest=True
+    square(0,0,40,40,log1)
+    square(0,0,30,30,log2)
+    square(0,0,20,20,log3)
+    square(0,0,10,10,log2)
+    square(0,0,5,5,log3)
+
+    square(10,17.5,5,5,log4)
+    square(-12.5,17.5,5,5,log4)
+    square(-17.5,-17.5,5,5,log4)
+    square(-17.5,2,5,5,log4)
+    square(17.5,4,5,5,log4)
+    square(17.5,-8,5,5,log4)
+    square(0,-17.5,5,5,log4)
+
+    square(-2,17.5,5,5,log3)
+    square(10,-17.5,5,5,log3)
+    square(17.5,17.5,5,5,log3)
+    square(-17.5,10,5,5,log3)
+    square(-10,-17.5,5,5,log3)
+    square(-17.5,-8,5,5,log2)
     glPopMatrix()
 
 def lompat(value):
     global y_pos_char,onfloor
     if onfloor==True:
         y_pos_char+=0.5
-        glutTimerFunc(180,lompat,0)
-        if y_pos_char >= 10:
+        glutTimerFunc(100,lompat,0)
+        if y_pos_char >= 30:
             onfloor=False
     if onfloor==False and y_pos_char>=-60:
         y_pos_char-=0.5
-        glutTimerFunc(180,lompat,0)
+        glutTimerFunc(200,lompat,0)
 
 def jump(key, x, y):
-    global x_pos_object,onfloor,gravity,choice1,choice2
+    global onfloor,state_quest
     # if key == b'u':
     #     onfloor=True
     #     if onfloor==True:
     #         lompat(0)
-    if key == b'1':
+    if key == b'1' and state_quest == True:
         if choice1 == correct_answer:
             onfloor=True
-    if key == b'2':
+            state_quest=False
+        else:
+            state_quest=False
+    if key == b'2' and state_quest == True:
         if choice2 == correct_answer:
             onfloor=True
+            state_quest=False
+        else:
+            state_quest=False
 
 def square(x,y,height,width,color):
     glBegin(GL_POLYGON)
@@ -253,7 +262,6 @@ def cloud():
     glPopMatrix()
 
 def cloud1():
-    global black,white,blue
     glPushMatrix()
     glTranslated(0,100,0)
     # Color
@@ -303,7 +311,6 @@ def cloud1():
     glPopMatrix()
 
 def cloud2():
-    global black,white,blue
     glPushMatrix()
     glTranslated(150,80,0)
     # Color
@@ -353,7 +360,6 @@ def cloud2():
     glPopMatrix()
 
 def cloud3():
-    global black,white,blue
     glPushMatrix()
     glTranslated(-150,90,0)
     # Color
@@ -403,7 +409,6 @@ def cloud3():
     glPopMatrix()
 
 def cloud4():
-    global black,white,blue
     glPushMatrix()
     glTranslated(100,180,0)
     # Color
@@ -453,7 +458,6 @@ def cloud4():
     glPopMatrix()
 
 def cloud5():
-    global black,white,blue
     glPushMatrix()
     glTranslated(-120,160,0)
     # Color
@@ -548,9 +552,8 @@ def decorates():
     draw_text(f'{choice2} ',40,-180,255,255,255)
 
 def playgame():
-    # character()
     panda()
-    rintangan()
+    log()
 
 def iterate():
     glViewport(0, 0, 500, 500)
