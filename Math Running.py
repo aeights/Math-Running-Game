@@ -70,6 +70,7 @@ pink = 224,166,179
 brown = 130,42,67
 blue = 197,224,253
 red = 254,0,0
+black1 = 0,0,0
 
 log1 = 53,41,24
 log2 = 103,83,53
@@ -78,6 +79,11 @@ log4 = 65,50,30
 
 sun1 = 253,221,127
 sun2 = 250,209,86
+
+tree1 = 10,84,9
+tree2 = 9,113,9
+tree3 = 121,73,3
+tree4 = 140,85,3
 
 def quest():
     global state_quest
@@ -262,14 +268,14 @@ def cloud():
     global xpos_cloud,ypos_cloud,state_cloud
     glPushMatrix()
     glTranslated(xpos_cloud,ypos_cloud,0)
-    # if state_cloud == True and xpos_cloud >= -50:
-    #     xpos_cloud -= 0.1
-    # else:
-    #     state_cloud = False
-    # if state_cloud == False and xpos_cloud >= 50:
-    #     xpos_cloud += 0.1
-    # else:
-    #     state_cloud = True
+    if state_cloud == True:
+        xpos_cloud -= 0.1
+        if xpos_cloud <= -50:
+            state_cloud = False
+    if state_cloud == False:
+        xpos_cloud += 0.1
+        if xpos_cloud >= 50:
+            state_cloud = True
     cloud1()
     cloud2()
     cloud3()
@@ -524,45 +530,341 @@ def cloud5():
 
 def sun():
     glPushMatrix()
-    glBegin(GL_POLYGON)
+    # glBegin(GL_POLYGON)
     # glColor3ub(245,255,97)
-    glColor3ub(sun1[0],sun1[1],sun1[2])
-    for i in range(360):
-        theta= 2 *3.1415926*i/360
-        x = 50 * math.cos(theta)
-        y = 50 * math.sin(theta)
-        glVertex2f(x-20, y+180)
-    glEnd()
-    # glScaled(0.8,0.8,0)
-    # glTranslated(-20,230,0)
-    # square(50,0,90,10,sun2)
-    # square(-50,0,90,10,sun2)
-    # square(0,50,10,90,sun2)
-    # square(0,-50,10,90,sun2)
+    # glColor3ub(sun1[0],sun1[1],sun1[2])
+    # for i in range(360):
+    #     theta= 2 *3.1415926*i/360
+    #     x = 50 * math.cos(theta)
+    #     y = 50 * math.sin(theta)
+    #     glVertex2f(x-20, y+180)
+    # glEnd()
+    glScaled(0.8,0.8,0)
+    glTranslated(-20,230,0)
+    square(50,0,90,10,sun2)
+    square(-50,0,90,10,sun2)
+    square(0,50,10,90,sun2)
+    square(0,-50,10,90,sun2)
 
-    # square(0,0,90,90,sun1)
-    # square(40,40,10,10,white)
+    square(0,0,90,90,sun1)
+    square(40,40,10,10,white)
 
-    # square(60,60,10,10,sun2)
-    # square(-60,60,10,10,sun2)
-    # square(60,-60,10,10,sun2)
-    # square(-60,-60,10,10,sun2)
+    square(60,60,10,10,sun2)
+    square(-60,60,10,10,sun2)
+    square(60,-60,10,10,sun2)
+    square(-60,-60,10,10,sun2)
 
-    # square(0,70,10,40,sun2)
-    # square(0,80,10,10,sun2)
-    # square(0,70,10,10,sun1)
+    square(0,70,10,40,sun2)
+    square(0,80,10,10,sun2)
+    square(0,70,10,10,sun1)
 
-    # square(0,-70,10,40,sun2)
-    # square(0,-80,10,10,sun2)
-    # square(0,-70,10,10,sun1)
+    square(0,-70,10,40,sun2)
+    square(0,-80,10,10,sun2)
+    square(0,-70,10,10,sun1)
 
-    # square(-70,0,40,10,sun2)
-    # square(-80,0,10,10,sun2)
-    # square(-70,0,10,10,sun1)
+    square(-70,0,40,10,sun2)
+    square(-80,0,10,10,sun2)
+    square(-70,0,10,10,sun1)
 
-    # square(70,0,40,10,sun2)
-    # square(80,0,10,10,sun2)
-    # square(70,0,10,10,sun1)
+    square(70,0,40,10,sun2)
+    square(80,0,10,10,sun2)
+    square(70,0,10,10,sun1)
+    glPopMatrix()
+
+def tree():
+    tree_1()
+    tree_2()
+    tree_3()
+    tree_4()
+    tree_5()
+
+xpos_tree1 = -250
+xpos_tree2 = -125
+xpos_tree3 = 0
+xpos_tree4 = 125
+xpos_tree5 = 250
+
+def tree_1():
+    global xpos_tree1
+    glPushMatrix()
+    glTranslated(xpos_tree1,-51,0)
+    xpos_tree1-=0.2
+    if xpos_tree1 <= -300:
+        xpos_tree1 = 300
+    # Color
+    square(0,-14,10,35,tree2)
+    square(15,-14,10,3,tree1)
+
+    square(0,-3,12,30,tree2)
+    square(12,-3,12,3,tree1)
+
+    square(0,6,7,26,tree2)
+    square(9,6,7,3,tree1)
+
+    square(0,15,12,21,tree2)
+    square(6,15,12,3,tree1)
+
+    square(0,26,10,15,tree2)
+    square(3,26,10,3,tree1)
+
+    square(0,35,8,9,tree2)
+
+    square(0,-23,8,10,tree3)
+    square(0,-25,4,10,tree4)
+
+    # Outline
+    square(0,40,3,3,black1)
+    square(3,35,8,3,black1)
+    square(-3,35,8,3,black1)
+
+    square(6,26,10,3,black1)
+    square(-6,26,10,3,black1)
+    
+    square(9,15,12,3,black1)
+    square(-9,15,12,3,black1)
+    
+    square(12,6,7,3,black1)
+    square(-12,6,7,3,black1)
+
+    square(15,-3,12,3,black1)
+    square(-15,-3,12,3,black1)
+
+    square(18,-14,10,3,black1)
+    square(-18,-14,10,3,black1)
+
+    square(10.5,-20.5,3,12,black1)
+    square(-10.5,-20.5,3,12,black1)
+
+    square(6,-23,8,3,black1)
+    square(-6,-23,8,3,black1)
+    square(0,-28,3,9,black1)
+    glPopMatrix()
+
+def tree_2():
+    global xpos_tree2
+    glPushMatrix()
+    glTranslated(xpos_tree2,-60,0)
+    glScaled(0.7,0.7,0)
+    xpos_tree2-=0.2
+    if xpos_tree2 <= -300:
+        xpos_tree2 = 300
+    # Color
+    square(0,-14,10,35,tree2)
+    square(15,-14,10,3,tree1)
+
+    square(0,-3,12,30,tree2)
+    square(12,-3,12,3,tree1)
+
+    square(0,6,7,26,tree2)
+    square(9,6,7,3,tree1)
+
+    square(0,15,12,21,tree2)
+    square(6,15,12,3,tree1)
+
+    square(0,26,10,15,tree2)
+    square(3,26,10,3,tree1)
+
+    square(0,35,8,9,tree2)
+
+    square(0,-23,8,10,tree3)
+    square(0,-25,4,10,tree4)
+
+    # Outline
+    square(0,40,3,3,black1)
+    square(3,35,8,3,black1)
+    square(-3,35,8,3,black1)
+
+    square(6,26,10,3,black1)
+    square(-6,26,10,3,black1)
+    
+    square(9,15,12,3,black1)
+    square(-9,15,12,3,black1)
+    
+    square(12,6,7,3,black1)
+    square(-12,6,7,3,black1)
+
+    square(15,-3,12,3,black1)
+    square(-15,-3,12,3,black1)
+
+    square(18,-14,10,3,black1)
+    square(-18,-14,10,3,black1)
+
+    square(10.5,-20.5,3,12,black1)
+    square(-10.5,-20.5,3,12,black1)
+
+    square(6,-23,8,3,black1)
+    square(-6,-23,8,3,black1)
+    square(0,-28,3,9,black1)
+    glPopMatrix()
+
+def tree_3():
+    global xpos_tree3
+    glPushMatrix()
+    glTranslated(xpos_tree3,-53,0)
+    glScaled(0.9,0.9,0)
+    xpos_tree3-=0.2
+    if xpos_tree3 <= -300:
+        xpos_tree3 = 300
+    # Color
+    square(0,-14,10,35,tree2)
+    square(15,-14,10,3,tree1)
+
+    square(0,-3,12,30,tree2)
+    square(12,-3,12,3,tree1)
+
+    square(0,6,7,26,tree2)
+    square(9,6,7,3,tree1)
+
+    square(0,15,12,21,tree2)
+    square(6,15,12,3,tree1)
+
+    square(0,26,10,15,tree2)
+    square(3,26,10,3,tree1)
+
+    square(0,35,8,9,tree2)
+
+    square(0,-23,8,10,tree3)
+    square(0,-25,4,10,tree4)
+
+    # Outline
+    square(0,40,3,3,black1)
+    square(3,35,8,3,black1)
+    square(-3,35,8,3,black1)
+
+    square(6,26,10,3,black1)
+    square(-6,26,10,3,black1)
+    
+    square(9,15,12,3,black1)
+    square(-9,15,12,3,black1)
+    
+    square(12,6,7,3,black1)
+    square(-12,6,7,3,black1)
+
+    square(15,-3,12,3,black1)
+    square(-15,-3,12,3,black1)
+
+    square(18,-14,10,3,black1)
+    square(-18,-14,10,3,black1)
+
+    square(10.5,-20.5,3,12,black1)
+    square(-10.5,-20.5,3,12,black1)
+
+    square(6,-23,8,3,black1)
+    square(-6,-23,8,3,black1)
+    square(0,-28,3,9,black1)
+    glPopMatrix()
+
+def tree_4():
+    global xpos_tree4
+    glPushMatrix()
+    glTranslated(xpos_tree4,-57,0)
+    glScaled(0.8,0.8,0)
+    xpos_tree4-=0.2
+    if xpos_tree4 <= -300:
+        xpos_tree4 = 300
+    # Color
+    square(0,-14,10,35,tree2)
+    square(15,-14,10,3,tree1)
+
+    square(0,-3,12,30,tree2)
+    square(12,-3,12,3,tree1)
+
+    square(0,6,7,26,tree2)
+    square(9,6,7,3,tree1)
+
+    square(0,15,12,21,tree2)
+    square(6,15,12,3,tree1)
+
+    square(0,26,10,15,tree2)
+    square(3,26,10,3,tree1)
+
+    square(0,35,8,9,tree2)
+
+    square(0,-23,8,10,tree3)
+    square(0,-25,4,10,tree4)
+
+    # Outline
+    square(0,40,3,3,black1)
+    square(3,35,8,3,black1)
+    square(-3,35,8,3,black1)
+
+    square(6,26,10,3,black1)
+    square(-6,26,10,3,black1)
+    
+    square(9,15,12,3,black1)
+    square(-9,15,12,3,black1)
+    
+    square(12,6,7,3,black1)
+    square(-12,6,7,3,black1)
+
+    square(15,-3,12,3,black1)
+    square(-15,-3,12,3,black1)
+
+    square(18,-14,10,3,black1)
+    square(-18,-14,10,3,black1)
+
+    square(10.5,-20.5,3,12,black1)
+    square(-10.5,-20.5,3,12,black1)
+
+    square(6,-23,8,3,black1)
+    square(-6,-23,8,3,black1)
+    square(0,-28,3,9,black1)
+    glPopMatrix()
+
+def tree_5():
+    global xpos_tree5
+    glPushMatrix()
+    glTranslated(xpos_tree5,-51,0)
+    xpos_tree5-=0.2
+    if xpos_tree5 <= -300:
+        xpos_tree5 = 300
+    # Color
+    square(0,-14,10,35,tree2)
+    square(15,-14,10,3,tree1)
+
+    square(0,-3,12,30,tree2)
+    square(12,-3,12,3,tree1)
+
+    square(0,6,7,26,tree2)
+    square(9,6,7,3,tree1)
+
+    square(0,15,12,21,tree2)
+    square(6,15,12,3,tree1)
+
+    square(0,26,10,15,tree2)
+    square(3,26,10,3,tree1)
+
+    square(0,35,8,9,tree2)
+
+    square(0,-23,8,10,tree3)
+    square(0,-25,4,10,tree4)
+
+    # Outline
+    square(0,40,3,3,black1)
+    square(3,35,8,3,black1)
+    square(-3,35,8,3,black1)
+
+    square(6,26,10,3,black1)
+    square(-6,26,10,3,black1)
+    
+    square(9,15,12,3,black1)
+    square(-9,15,12,3,black1)
+    
+    square(12,6,7,3,black1)
+    square(-12,6,7,3,black1)
+
+    square(15,-3,12,3,black1)
+    square(-15,-3,12,3,black1)
+
+    square(18,-14,10,3,black1)
+    square(-18,-14,10,3,black1)
+
+    square(10.5,-20.5,3,12,black1)
+    square(-10.5,-20.5,3,12,black1)
+
+    square(6,-23,8,3,black1)
+    square(-6,-23,8,3,black1)
+    square(0,-28,3,9,black1)
     glPopMatrix()
 
 def draw_hp(x=130):
@@ -664,6 +966,7 @@ def decorates():
     grass()
     sun()
     cloud()
+    tree()
     quest()
     show_hp()
 

@@ -11,6 +11,7 @@ brown = 130,42,67
 blue = 197,224,253
 yellow = 245,255,97
 red = 254,0,0
+black1 = 0,0,0
 
 log1 = 53,41,24
 log2 = 103,83,53
@@ -19,6 +20,11 @@ log4 = 65,50,30
 
 sun1 = 253,221,127
 sun2 = 250,209,86
+
+tree1 = 10,84,9
+tree2 = 9,113,9
+tree3 = 121,73,3
+tree4 = 140,85,3
 
 def square(x,y,height,width,color):
     glBegin(GL_POLYGON)
@@ -212,7 +218,6 @@ def hp():
     square(1,-13,3,3,black)
     square(-1,-13,3,3,black)
 
-
 def sun():
     glScaled(4,4,0)
     # Color
@@ -301,6 +306,56 @@ def backup():
     square(4,7,7,3,black) #mata kanan
     square(-4,5,3,7,black) #mulut
 
+def tree():
+    glScaled(4,4,0)
+    # Color
+    square(0,-14,10,35,tree2)
+    square(15,-14,10,3,tree1)
+
+    square(0,-3,12,30,tree2)
+    square(12,-3,12,3,tree1)
+
+    square(0,6,7,26,tree2)
+    square(9,6,7,3,tree1)
+
+    square(0,15,12,21,tree2)
+    square(6,15,12,3,tree1)
+
+    square(0,26,10,15,tree2)
+    square(3,26,10,3,tree1)
+
+    square(0,35,8,9,tree2)
+
+    square(0,-23,8,10,tree3)
+    square(0,-25,4,10,tree4)
+
+    # Outline
+    square(0,40,3,3,black1)
+    square(3,35,8,3,black1)
+    square(-3,35,8,3,black1)
+
+    square(6,26,10,3,black1)
+    square(-6,26,10,3,black1)
+    
+    square(9,15,12,3,black1)
+    square(-9,15,12,3,black1)
+    
+    square(12,6,7,3,black1)
+    square(-12,6,7,3,black1)
+
+    square(15,-3,12,3,black1)
+    square(-15,-3,12,3,black1)
+
+    square(18,-14,10,3,black1)
+    square(-18,-14,10,3,black1)
+
+    square(10.5,-20.5,3,12,black1)
+    square(-10.5,-20.5,3,12,black1)
+
+    square(6,-23,8,3,black1)
+    square(-6,-23,8,3,black1)
+    square(0,-28,3,9,black1)
+
 def iterate():
     glViewport(0, 0, 500, 500)
     glMatrixMode(GL_PROJECTION)
@@ -320,7 +375,8 @@ def showScreen():
     # cloud()
     # sun()
     # sun_new()
-    hp()
+    # hp()
+    tree()
     # square(0,0,2,2,[255,160,112])
     # square(0,0,50,50,blue)
     glutSwapBuffers()
