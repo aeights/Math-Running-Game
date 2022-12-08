@@ -51,6 +51,20 @@ def drawText1(text,xpos,ypos,color):
        else:
           glutBitmapCharacter(font_style, ord(i))
 
+def drawTextBold(text,xpos,ypos,color):
+    glPushMatrix()
+    font_style = glut.GLUT_BITMAP_HELVETICA_18
+    glColor3ub(color[0],color[1],color[2])
+    line=0
+    glRasterPos2f (xpos, ypos)
+    for i in text:
+       if  i=='\n':
+          line=line+1
+          glRasterPos2f (xpos, ypos*line)
+       else:
+          glutBitmapCharacter(font_style, ord(i))  
+    glPopMatrix()  
+
 # Question
 number1 = 0
 number2 = 0
@@ -950,13 +964,10 @@ def grass():
 
 def start():
     glPushMatrix()
-    glBegin(GL_POLYGON)
-    glColor3ub(60, 170, 205)
-    glVertex2d(-100,30)
-    glVertex2d(100,30)
-    glVertex2d(100,-30)
-    glVertex2d(-100,-30)
-    glEnd()
+    square(0,0,500,500,blue)
+    square(0,0,100,200,log1)
+    drawTextBold("PLAY GAME",-50,0,black1)
+    drawText1("PRESS ENTER TO PLAY GAME",-96,-25,[255,255,255])
     glPopMatrix()
 
 def decorates():
@@ -1017,9 +1028,9 @@ def showScreen():
     glClearColor(0,0,0,1)
     glLoadIdentity()
     iterate()
-    # start()
-    decorates()
-    playgame()
+    start()
+    # decorates()
+    # playgame()
     glutSwapBuffers()
 
 glutInit()
