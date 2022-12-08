@@ -20,6 +20,7 @@ y_pos_char = -60
 onfloor = False
 
 # Game
+play = False
 game_over = False
 hp = 3
 point = 0
@@ -72,6 +73,8 @@ wrong_answer = 0
 correct_answer = 0
 choice1 = 0
 choice2 = 0
+range_num1 = 1
+range_num2 = 5
 state_quest = True
 show_answer_left = False
 show_answer_right = False
@@ -100,17 +103,25 @@ tree3 = 121,73,3
 tree4 = 140,85,3
 
 def quest():
-    global state_quest
+    global state_quest,level,range_num2
     if onfloor == True and x_pos_object <= -120:
         lompat(0)
-        state_quest=True
+    if point == 100:
+        level=2
+        range_num2=10
+    elif point == 200:
+        level=3
+        range_num2=15
+    elif point == 300:
+        level=4
+        range_num2=20
 
 def refresh_quest():
     global number1,number2,choice1,choice2,wrong_answer,correct_answer
     # refresh number
-    rand_num1 = random.randrange(1,10)
+    rand_num1 = random.randrange(range_num1,range_num2)
     number1 = rand_num1
-    rand_num2 = random.randrange(1,10)
+    rand_num2 = random.randrange(range_num1,range_num2)
     number2 = rand_num2
 
     # refresh answer
@@ -243,25 +254,29 @@ def lompat(value):
         glutTimerFunc(200,lompat,0)
 
 def jump(key, x, y):
-    global onfloor,state_quest,show_answer_left,show_answer_right
+    global onfloor,state_quest,show_answer_left,show_answer_right,point,play,game_over
     # if key == b'u':
     #     onfloor=True
     #     if onfloor==True:
     #         lompat(0)
-    if key == b'1' and state_quest == True:
-        show_answer_left=True
-        if choice1 == correct_answer:
-            onfloor=True
+    if play == True:
+        if key == b'1' and state_quest == True:
+            show_answer_left=True
             state_quest=False
-        else:
+            if choice1 == correct_answer:
+                onfloor=True
+                point+=10
+        if key == b'2' and state_quest == True:
+            show_answer_right=True
             state_quest=False
-    if key == b'2' and state_quest == True:
-        show_answer_right=True
-        if choice2 == correct_answer:
-            onfloor=True
-            state_quest=False
-        else:
-            state_quest=False
+            if choice2 == correct_answer:
+                onfloor=True
+                point+=10
+    if key == b'\r' and play == False:
+        play=True
+    if key == b'r' and game_over == True:
+        play=False
+        game_over=False
 
 def square(x,y,height,width,color):
     glBegin(GL_POLYGON)
@@ -884,7 +899,7 @@ def tree_5():
 def draw_hp(x=130):
     global xpos_hp
     glPushMatrix()
-    glTranslated(x,10,0)
+    glTranslated(x,30,0)
     # Color
     square(9.5,15,4,10,red)
     square(-9.5,15,4,10,red)
@@ -926,18 +941,18 @@ def draw_hp(x=130):
     glPopMatrix()
 
 def show_hp():
-    global xpos_hp
-    if hp==3:
+    global xpos_hp,game_over
+    if hp == 3:
         draw_hp()
         draw_hp(175)
         draw_hp(220)
-    elif hp==2:
+    elif hp == 2:
         draw_hp()
         draw_hp(175)
-    elif hp==1:
+    elif hp == 1:
         draw_hp()
-    else:
-        pass
+    elif hp == 0:
+        game_over=True
 
 def dirt():
     glPushMatrix()
@@ -965,9 +980,35 @@ def grass():
 def start():
     glPushMatrix()
     square(0,0,500,500,blue)
-    square(0,0,100,200,log1)
+    square(0,0,80,200,[89,206,143])
+    square(0,45,10,200,log3)
+    square(0,-45,10,200,log3)
+    square(105,0,80,10,log3)
+    square(-105,0,80,10,log3)
     drawTextBold("PLAY GAME",-50,0,black1)
     drawText1("PRESS ENTER TO PLAY GAME",-96,-25,[255,255,255])
+
+    dirt()
+    grass()
+    sun()
+    cloud1()
+    cloud2()
+    cloud3()
+    cloud4()
+    cloud5()
+    glPopMatrix()
+
+def end():
+    glPushMatrix()
+    square(0,0,500,500,black)
+    square(0,0,80,200,[141,141,170])
+    square(0,45,10,200,blue)
+    square(0,-45,10,200,blue)
+    square(105,0,80,10,blue)
+    square(-105,0,80,10,blue)
+    drawTextBold("GAME OVER",-58,10,black1)
+    drawText1(f'YOUR FINAL SCORE: {point}',-80,-10,white)
+    drawText1('PRESS "R" TO RESTART',-80,-30,white)
     glPopMatrix()
 
 def decorates():
@@ -987,7 +1028,7 @@ def decorates():
     square(40,-144,35,3,log1)
     square(-40,-144,35,3,log1)
 
-    # Highlight
+    # Highlight answer
     if show_answer_left==True:
         square(-48,-203,35,50,log1)
     elif show_answer_right==True:
@@ -1005,11 +1046,16 @@ def decorates():
     square(72,-203,35,3,[102,166,60])
     square(22,-203,35,3,[102,166,60])
 
+    # Draw quest
     draw_text(f"{number1} + {number2}",-25,-150,[255,255,255])
     draw_text(f'{choice1}',-60,-210,[255,255,255])
     draw_text(f'{choice2} ',35,-210,[255,255,255])
 
-    drawText1("SCORE",0,0,[255,255,255])
+    # Draw level and score
+    drawText1("LEVEL:",-230,-200,[255,255,255])
+    drawText1(f'{level}',-180,-200,[255,255,255])
+    drawText1("SCORE:",-230,-225,[255,255,255])
+    drawText1(f'{point}',-180,-225,[255,255,255])
 
 def playgame():
     log()
@@ -1028,16 +1074,20 @@ def showScreen():
     glClearColor(0,0,0,1)
     glLoadIdentity()
     iterate()
-    start()
-    # decorates()
-    # playgame()
+    if play == False and game_over == False:
+        start()
+    elif play == True and game_over == False:
+        decorates()
+        playgame()
+    elif play == True and game_over == True:
+        end()
     glutSwapBuffers()
 
 glutInit()
 glutInitDisplayMode(GLUT_RGBA)
 glutInitWindowSize(500, 500)
 glutInitWindowPosition(0, 0)
-glutCreateWindow("Muhammad Afif Ma'ruf")
+glutCreateWindow("Math Running Game")
 glutDisplayFunc(showScreen)
 glutIdleFunc(showScreen)
 glutKeyboardFunc(jump)

@@ -356,6 +356,22 @@ def tree():
     square(-6,-23,8,3,black1)
     square(0,-28,3,9,black1)
 
+def start():
+    square(0,0,500,500,blue)
+    square(0,0,80,200,(89,206,143))
+    square(0,45,10,200,tree1)
+    square(0,-45,10,200,tree1)
+    square(105,0,80,10,tree1)
+    square(-105,0,80,10,tree1)
+
+def game_over():
+    square(0,0,500,500,black)
+    square(0,0,80,200,[141,141,170])
+    square(0,45,10,200,blue)
+    square(0,-45,10,200,blue)
+    square(105,0,80,10,blue)
+    square(-105,0,80,10,blue)
+
 def iterate():
     glViewport(0, 0, 500, 500)
     glMatrixMode(GL_PROJECTION)
@@ -376,7 +392,9 @@ def showScreen():
     # sun()
     # sun_new()
     # hp()
-    tree()
+    # tree()
+    # start()
+    # game_over()
     # square(0,0,2,2,[255,160,112])
     # square(0,0,50,50,blue)
     glutSwapBuffers()
