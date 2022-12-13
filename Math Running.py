@@ -254,7 +254,7 @@ def lompat(value):
         glutTimerFunc(200,lompat,0)
 
 def jump(key, x, y):
-    global onfloor,state_quest,show_answer_left,show_answer_right,point,play,game_over,hp
+    global onfloor,state_quest,show_answer_left,show_answer_right,point,play,game_over,hp,level
     # if key == b'u':
     #     onfloor=True
     #     if onfloor==True:
@@ -279,6 +279,7 @@ def jump(key, x, y):
         game_over=False
         hp=3
         point=0
+        level=1
 
 
 def square(x,y,height,width,color):
