@@ -391,7 +391,7 @@ def showScreen():
     # cloud()
     # sun()
     # sun_new()
-    # hp()
+    hp()
     # tree()
     # start()
     # game_over()
