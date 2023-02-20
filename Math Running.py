@@ -1,9 +1,9 @@
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
-import math
 import random
 import OpenGL.GLUT as glut
+import math
 import os
 # try:
 #     del os.environ['DISPLAY']
